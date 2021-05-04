@@ -9,13 +9,59 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
-            <ColumnDefinition />
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Border BorderThickness="2" BorderBrush="Black" Grid.Column="0"/>
         <Border BorderThickness="2" BorderBrush="Black" Grid.Column="1"/>
-        <TextBlock Text="Opening hours of the cinema" TextWrapping="Wrap" Width="285" VerticalAlignment="Top" HorizontalAlignment="Left" Height="28" FontSize="18" Margin="10,0,0,0"/>
-        <TextBox x:Name="WorkTimeFrom" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,33,0,0" Width="140" FontSize="18" AutomationProperties.HelpText="From" Text="10"/>
-        <TextBox x:Name="WorkTimeTo" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Text="24" Margin="0,33,10,0" Width="130" FontSize="18" AutomationProperties.HelpText="To"/>
+
+        <Grid x:Name="Grid2" Grid.Column="0" Margin="0,10,5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Opening hours of the cinema" TextWrapping="Wrap" Width="285" VerticalAlignment="Top" HorizontalAlignment="Left" Height="28" FontSize="18" Margin="5,0,0,0" Grid.Row="0"/>
+            <TextBox x:Name="WorkTimeFrom" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,33,0,0" Width="140" FontSize="18" AutomationProperties.HelpText="From" Text="10" Grid.Row="0"/>
+            <TextBox x:Name="WorkTimeTo" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Text="24" Margin="155,33,0,0" Width="130" FontSize="18" AutomationProperties.HelpText="To" Grid.Row="0"/>
+
+            <Button x:Name="AddMovie" Content="Add Movie" Grid.Row="1" Background="#FFB6ADAD" FontSize="20" FontWeight="Bold" Margin="5,2,0,2"/>
+
+            <ListBox Grid.Row="2" Background="{x:Null}" BorderBrush="Black" Margin="5,0,0,0">
+            </ListBox>
+        </Grid>
+
+        <TabControl Grid.Column="1">
+            <TabItem Header="Hall 1">
+                <TabItem.Content>
+                    <ListBox Margin="3,3,3,3">
+                        <Border Width="906" Height="192" BorderBrush="Black" Background="#FFE0E0E0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,2,2,2" Padding="2,2,2,2" >
+                            <Grid Margin="1,1,1,1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <TextBox x:Name="MovieName" Grid.Row="0" Grid.Column="1" Text="MovieName"/>
+                                <TextBox x:Name="MovieTime" Grid.Row="1" Grid.Column="0" Text="MovieTime" Margin="0,47,0,0"/>
+                                <TextBox x:Name="MovieDescription" Grid.Column="1" Text="MovieDescription" Margin="0,46,0,0" Grid.RowSpan="2"/>
+                                <Image Grid.Row="0" Grid.Column="0" Margin="0,0,0,46" Grid.RowSpan="2" />
+                            </Grid>
+                        </Border>
+
+                    </ListBox>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Hall 2">
+
+            </TabItem>
+        </TabControl>
+
 
     </Grid>
+
 </Window>
