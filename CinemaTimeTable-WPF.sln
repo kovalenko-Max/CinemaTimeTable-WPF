@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTimeTable-WPF", "CinemaTimeTable-WPF\CinemaTimeTable-WPF.csproj", "{8995D91A-49A5-4AA4-A616-060D8338A26F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8995D91A-49A5-4AA4-A616-060D8338A26F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8995D91A-49A5-4AA4-A616-060D8338A26F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8995D91A-49A5-4AA4-A616-060D8338A26F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8995D91A-49A5-4AA4-A616-060D8338A26F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5784CA6D-4AEE-46CC-AD3E-CF6F094257AF}
+	EndGlobalSection
+EndGlobal
