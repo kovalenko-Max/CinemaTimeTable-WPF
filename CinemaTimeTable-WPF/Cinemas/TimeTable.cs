@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CinemaTimeTable_WPF.Cinema
+namespace CinemaTimeTable_WPF.Cinemas
 {
     public class TimeTable
     {
-        public List<Movie> Movies;
+        public ObservableCollection<Movie> Movies;
 
         public Node Graph;
 
         public Dictionary<TimeSpan, Movie> TimeTableElement;
-        public TimeTable(List<Movie> movies)
+        public TimeTable(ObservableCollection<Movie> movies)
         {
             Movies = movies;
         }

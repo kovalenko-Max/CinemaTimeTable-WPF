@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CinemaTimeTable_WPF.Cinema
+namespace CinemaTimeTable_WPF.Cinemas
 {
     public class Movie : ICloneable
     {

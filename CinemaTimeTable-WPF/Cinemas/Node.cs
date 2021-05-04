@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CinemaTimeTable_WPF.Cinema
+namespace CinemaTimeTable_WPF.Cinemas
 {
     public class Node : ICloneable
     {
-        public List<Movie> Movies { get; set; }
+        public ObservableCollection<Movie> Movies { get; set; }
         public TimeSpan TimeLeft;
 
         public Movie Movie;
@@ -17,7 +18,7 @@ namespace CinemaTimeTable_WPF.Cinema
         public List<Node> AllPreviousMovies;
         public List<Node> NextNodes;
 
-        public Node(TimeSpan timeLeft, TimeSpan time, List<Movie> movies, List<Node> allPreviousMovies = null)
+        public Node(TimeSpan timeLeft, TimeSpan time, ObservableCollection<Movie> movies, List<Node> allPreviousMovies = null)
         {
             TimeLeft = timeLeft;
             Time = time;
@@ -45,8 +46,9 @@ namespace CinemaTimeTable_WPF.Cinema
                     Node previousNode = (Node)this.Clone();
                     newAllPreviousMovies.Add(previousNode);
 
-                    List<Movie> newMoviesList = new List<Movie>(Movies);
-                    newMoviesList.Remove(movie);
+                    ObservableCollection<Movie> newMoviesList = new ObservableCollection<Movie>(Movies);
+                    //newMoviesList.Remove(movie);
+
                     Node nextNode = new Node(TimeLeft - movie.Duration, Time + movie.Duration, newMoviesList, newAllPreviousMovies);
                     NextNodes.Add(nextNode);
                     nextNode.CreateGraph();
@@ -112,7 +114,7 @@ namespace CinemaTimeTable_WPF.Cinema
 
         public object Clone()
         {
-            Node cloneNode = new Node(TimeLeft, Time, new List<Movie>(Movies), new List<Node>(AllPreviousMovies));
+            Node cloneNode = new Node(TimeLeft, Time, new ObservableCollection<Movie>(Movies), new List<Node>(AllPreviousMovies));
 
             if (Movie != null)
             {

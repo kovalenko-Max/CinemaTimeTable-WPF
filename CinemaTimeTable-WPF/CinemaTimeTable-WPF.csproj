@@ -7,12 +7,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="maxresdefault.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="maxresdefault.jpg" />
-  </ItemGroup>
-
 </Project>
