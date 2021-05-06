@@ -15,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CinemaTimeTable_WPF.Cinemas;
 
 namespace CinemaTimeTable_WPF
 {
@@ -49,17 +48,17 @@ namespace CinemaTimeTable_WPF
 
         private void CreateTimeTable_Click(object sender, RoutedEventArgs e)
         {
-            _mainData.CinemaHalls[0].CreateTimeTable();
-            _mainData.MoviesByTime = new ObservableCollection<MovieСard>();
-            TimeTableList.ItemsSource = _mainData.MoviesByTime;
+            //_mainData.CinemaHalls[0].CreateTimeTable();
+            //_mainData.MoviesByTime = new ObservableCollection<MovieСard>();
+            //TimeTableList.ItemsSource = _mainData.MoviesByTime;
 
-            foreach (var movie in _mainData.CinemaHalls[0].TimeTable.TimeTableElement)
-            {
-                MovieСard movieСard = new MovieСard(movie.Key, movie.Value);
-                string time = (movie.Key + movie.Value.Duration).ToString();
-                movieСard.movieTime.Text += " - " + time;
-                _mainData.MoviesByTime.Add(movieСard);
-            }
+            //foreach (var movie in _mainData.CinemaHalls[0].TimeTable.TimeTableElement)
+            //{
+            //    MovieСard movieСard = new MovieСard(movie.Key, movie.Value);
+            //    string time = (movie.Key + movie.Value.Duration).ToString();
+            //    movieСard.movieTime.Text += " - " + time;
+            //    _mainData.MoviesByTime.Add(movieСard);
+            //}
         }
     }
 }

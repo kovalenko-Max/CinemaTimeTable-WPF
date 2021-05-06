@@ -1,5 +1,4 @@
-﻿using CinemaTimeTable_WPF.Cinemas;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +22,7 @@ namespace CinemaTimeTable_WPF
             Margin = marginThickness;
 
             Grid movieCardGrid = new Grid();
-            
+
             movieCardGrid.Height = 191;
             movieCardGrid.Width = 905;
 
@@ -45,7 +44,7 @@ namespace CinemaTimeTable_WPF
             columnDefinition.Width = new GridLength(600, GridUnitType.Star);
             movieCardGrid.ColumnDefinitions.Add(columnDefinition);
 
-            
+
 
             TextBlock movieName = new TextBlock();
             movieName.Foreground = Brushes.Black;

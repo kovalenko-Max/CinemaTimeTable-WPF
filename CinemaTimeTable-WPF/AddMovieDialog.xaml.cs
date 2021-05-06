@@ -1,5 +1,4 @@
-﻿using CinemaTimeTable_WPF.Cinemas;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,12 +27,12 @@ namespace CinemaTimeTable_WPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainData mainData = MainData.GetMainData();
-            TimeSpan duration = new TimeSpan(0, Convert.ToInt32(MovieDurationTextBox.Text), 0);
-            Movie movie = new Movie(MovieNameTextBox.Text,duration);
-            movie.Description = MovieDescriptionTextBox.Text;
-            mainData.Movies.Add(movie);
-            
+            //MainData mainData = MainData.GetMainData();
+            //TimeSpan duration = new TimeSpan(0, Convert.ToInt32(MovieDurationTextBox.Text), 0);
+            //Movie movie = new Movie(MovieNameTextBox.Text, duration);
+            //movie.Description = MovieDescriptionTextBox.Text;
+            //mainData.Movies.Add(movie);
+
             this.Close();
         }
 
