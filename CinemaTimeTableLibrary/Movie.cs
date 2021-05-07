@@ -16,11 +16,7 @@ namespace CinemaTimeTableLibrary
         {
             Name = name;
             Duration = duration;
-        }
-
-        public override string ToString()
-        {
-            return $"{Name} ({Duration})";
+            Description = string.Empty;
         }
 
         public object Clone()
@@ -28,6 +24,26 @@ namespace CinemaTimeTableLibrary
             Movie cloneMovie = new Movie(Name, Duration);
             cloneMovie.Description = Description;
             return cloneMovie;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} ({Duration.ToString(@"hh\:mm")})";
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj is Movie)
+            {
+                Movie comparedMovie = (Movie)obj;
+                return Name.Equals(comparedMovie.Name)
+                    && Description.Equals(comparedMovie.Description)
+                    && Duration == comparedMovie.Duration;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

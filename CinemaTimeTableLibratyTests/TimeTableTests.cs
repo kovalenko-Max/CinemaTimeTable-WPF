@@ -17,6 +17,7 @@ namespace CinemaTimeTableLibratyTests
         public void CreateTimeTable(TimeTableCreator actual, TimeTableCreator expected)
         {
             actual.CreateTimeTable();
+            Assert.AreEqual(expected, actual);
         }
     }
 
@@ -24,23 +25,106 @@ namespace CinemaTimeTableLibratyTests
     {
         public IEnumerator GetEnumerator()
         {
-            TimeSpan endTime = new TimeSpan(15, 0, 0);
-            ObservableCollection<Movie> movies = new ObservableCollection<Movie>()
+            IEnumerable<Movie> movies = Mocks.GetMovies(0);
+
+            WorkDay workDay = new WorkDay(new TimeSpan(10, 0, 0), new TimeSpan(15, 0, 0));
+            TimeTableCreator actualTimeTable = new TimeTableCreator(movies, workDay);
+            TimeTableCreator expectedTimeTable = new TimeTableCreator(movies, workDay);
+            expectedTimeTable.BestTimeTable = Mocks.GetExpectedTimeTable(new int[] { 0, 0, 2, 4 }, workDay);
+            yield return new object[]
             {
-                new Movie("a", new TimeSpan(1,30,0)),
-                new Movie("b", new TimeSpan(2,0,0)),
-                new Movie("c", new TimeSpan(1,55,0)),
-                new Movie("d", new TimeSpan(3,0,0)),
-                new Movie("e", new TimeSpan(0,5,0))
+                actualTimeTable,
+                expectedTimeTable
             };
 
-            TimeTableCreator expectedTimeTable = new TimeTableCreator(movies, endTime);
+            movies = Mocks.GetMovies(1);
+            workDay = new WorkDay(new TimeSpan(10, 0, 0), new TimeSpan(13, 0, 0));
+            actualTimeTable = new TimeTableCreator(movies, workDay);
+            expectedTimeTable = new TimeTableCreator(movies, workDay);
+            expectedTimeTable.BestTimeTable = Mocks.GetExpectedTimeTable(new int[] { 0 , 0}, workDay);
 
             yield return new object[]
             {
-                new TimeTableCreator(movies, endTime),
+                actualTimeTable,
                 expectedTimeTable
             };
+
+            movies = Mocks.GetMovies(2);
+            workDay = new WorkDay(new TimeSpan(10, 0, 0), new TimeSpan(24, 0, 0));
+            actualTimeTable = new TimeTableCreator(movies, workDay);
+            expectedTimeTable = new TimeTableCreator(movies, workDay);
+            expectedTimeTable.BestTimeTable = Mocks.GetExpectedTimeTable(new int[] { 0, 0 }, workDay);
+
+            yield return new object[]
+            {
+                actualTimeTable,
+                expectedTimeTable
+            };
+
         }
     }
+
+    public static class Mocks
+    {
+        public static TimeTable GetExpectedTimeTable(int[] moviesSequence, WorkDay workDay)
+        {
+            IList<Movie> movies = GetMovies(0);
+            Dictionary<TimeSpan, Movie> dictonary = new Dictionary<TimeSpan, Movie>();
+            TimeTable expectedTimeTable = new TimeTable(dictonary, workDay.TimeLeft);
+            TimeSpan time = workDay.TimeOfStart;
+
+            foreach (int i in moviesSequence)
+            {
+                expectedTimeTable.MoviesByTime.Add(time, movies[i]);
+                expectedTimeTable.TimeLeft -= movies[i].Duration;
+                time += movies[i].Duration;
+            }
+
+            return expectedTimeTable;
+        }
+
+        public static IList<Movie> GetMovies(int numberOfMoviesSet)
+        {
+            IList<Movie> movies;
+
+            switch (numberOfMoviesSet)
+            {
+                case 1:
+                    movies = new ObservableCollection<Movie>()
+                    {
+                        new Movie("a", new TimeSpan(1,30,0)),
+                        new Movie("b", new TimeSpan(2,0,0)),
+                        new Movie("c", new TimeSpan(1,55,0))
+                    };
+                    break;
+
+                case 2:
+                    movies = new List<Movie>()
+                    {
+                        new Movie("a", new TimeSpan(1,30,0)),
+                        new Movie("b", new TimeSpan(2,0,0)),
+                        new Movie("c", new TimeSpan(1,55,0)),
+                        new Movie("d", new TimeSpan(1,45,0)),
+                        new Movie("e", new TimeSpan(2,20,0)),
+                        new Movie("f", new TimeSpan(3,0,0)),
+                        new Movie("g", new TimeSpan(1,45,0))
+                    };
+                    break;
+
+                default:
+                    movies = new ObservableCollection<Movie>()
+                    {
+                        new Movie("a", new TimeSpan(1,30,0)),
+                        new Movie("b", new TimeSpan(2,0,0)),
+                        new Movie("c", new TimeSpan(1,55,0)),
+                        new Movie("d", new TimeSpan(3,0,0)),
+                        new Movie("e", new TimeSpan(0,5,0))
+                    };
+                    break;
+            }
+
+            return movies;
+        }
+    }
+
 }

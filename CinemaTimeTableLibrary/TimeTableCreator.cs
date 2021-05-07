@@ -10,25 +10,35 @@ namespace CinemaTimeTableLibrary
     public class TimeTableCreator
     {
         public IEnumerable<Movie> Movies;
-        public TimeSpan StartTime;
-        public TimeSpan EndTime;
-
+        public WorkDay WorkDay;
         public TimeTable BestTimeTable;
         
-
-        public TimeTableCreator(ObservableCollection<Movie> movies, TimeSpan endTime)
+        public TimeTableCreator(IEnumerable<Movie> movies, WorkDay workDay)
         {
-            StartTime = new TimeSpan(10, 0, 0);
             Movies = movies;
-            EndTime = endTime;
-            
-            BestTimeTable = new TimeTable(EndTime - StartTime);
+            WorkDay = workDay;
+            BestTimeTable = new TimeTable(WorkDay.TimeLeft);
         }
 
         public void CreateTimeTable()
         {
-            TimeSpan leftTime = EndTime - StartTime;
-            FindBestTimeTable(leftTime, StartTime, new TimeTable(leftTime));
+            TimeSpan leftTime = WorkDay.TimeLeft;
+            FindBestTimeTable(leftTime, WorkDay.TimeOfStart, new TimeTable(leftTime));
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj is TimeTableCreator)
+            {
+                TimeTableCreator comparedTimeTableCreator = (TimeTableCreator)obj;
+
+                return WorkDay.Equals(comparedTimeTableCreator.WorkDay)
+                    && BestTimeTable.Equals(comparedTimeTableCreator.BestTimeTable);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void FindBestTimeTable(TimeSpan timeLeft, TimeSpan time, TimeTable currentTimeTable)

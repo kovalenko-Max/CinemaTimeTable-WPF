@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTimeTable-WPF", "Cine
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTimeTableLibrary", "CinemaTimeTableLibrary\CinemaTimeTableLibrary.csproj", "{75AD3966-4D77-4F38-BAF4-65F5018F8074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTimeTableLibratyTests", "CinemaTimeTableLibratyTests\CinemaTimeTableLibratyTests.csproj", "{20915F80-FF22-4C61-B4F1-E5EC5AC00D5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTimeTableLibratyTests", "CinemaTimeTableLibratyTests\CinemaTimeTableLibratyTests.csproj", "{20915F80-FF22-4C61-B4F1-E5EC5AC00D5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,6 +16,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8995D91A-49A5-4AA4-A616-060D8338A26F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8995D91A-49A5-4AA4-A616-060D8338A26F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8995D91A-49A5-4AA4-A616-060D8338A26F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8995D91A-49A5-4AA4-A616-060D8338A26F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75AD3966-4D77-4F38-BAF4-65F5018F8074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

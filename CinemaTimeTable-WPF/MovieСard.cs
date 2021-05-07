@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using CinemaTimeTableLibrary;
 
 namespace CinemaTimeTable_WPF
 {
@@ -59,7 +60,7 @@ namespace CinemaTimeTable_WPF
             movieTime.Foreground = Brushes.Black;
             movieTime.FontSize = 25;
             movieTime.FontWeight = FontWeights.Bold;
-            movieTime.Text = time.ToString();
+            movieTime.Text = time.ToString(@"hh\:mm");
             Grid.SetRow(movieTime, 0);
             Grid.SetColumn(movieTime, 1);
             movieCardGrid.Children.Add(movieTime);

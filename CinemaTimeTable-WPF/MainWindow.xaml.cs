@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CinemaTimeTableLibrary;
 
 namespace CinemaTimeTable_WPF
 {
@@ -28,10 +29,14 @@ namespace CinemaTimeTable_WPF
         {
             InitializeComponent();
             _mainData = MainData.GetMainData();
+            _mainData.WorkDay = new WorkDay(new TimeSpan(Convert.ToInt32(WorkTimeFrom.Text), 0, 0),
+                new TimeSpan(Convert.ToInt32(WorkTimeTo.Text), 0, 0));
+
+            _mainData.CinemaHalls = new List<CinemaHall>();
+            _mainData.CinemaHalls.Add(new CinemaHall(_mainData.WorkDay, _mainData.Movies));
+
             MovieListBox.ItemsSource = _mainData.Movies;
             TimeTableList.ItemsSource = _mainData.MoviesByTime;
-            int workTimeDuration = Convert.ToInt32(WorkTimeTo.Text) - Convert.ToInt32(WorkTimeFrom.Text);
-            _mainData.WorkTimeDuration = new TimeSpan(workTimeDuration, 0, 0);
         }
 
         private void AddMovie_Click(object sender, RoutedEventArgs e)
@@ -48,17 +53,17 @@ namespace CinemaTimeTable_WPF
 
         private void CreateTimeTable_Click(object sender, RoutedEventArgs e)
         {
-            //_mainData.CinemaHalls[0].CreateTimeTable();
-            //_mainData.MoviesByTime = new ObservableCollection<MovieСard>();
-            //TimeTableList.ItemsSource = _mainData.MoviesByTime;
+            _mainData.CinemaHalls[0].CreateTimeTable();
+            _mainData.MoviesByTime = new ObservableCollection<MovieСard>();
+            TimeTableList.ItemsSource = _mainData.MoviesByTime;
 
-            //foreach (var movie in _mainData.CinemaHalls[0].TimeTable.TimeTableElement)
-            //{
-            //    MovieСard movieСard = new MovieСard(movie.Key, movie.Value);
-            //    string time = (movie.Key + movie.Value.Duration).ToString();
-            //    movieСard.movieTime.Text += " - " + time;
-            //    _mainData.MoviesByTime.Add(movieСard);
-            //}
+            foreach (var movieByTime in _mainData.CinemaHalls[0].TimeTable.MoviesByTime)
+            {
+                MovieСard movieСard = new MovieСard(movieByTime.Key, movieByTime.Value);
+                string time = (movieByTime.Key + movieByTime.Value.Duration).ToString(@"hh\:mm");
+                movieСard.movieTime.Text += " - " + time;
+                _mainData.MoviesByTime.Add(movieСard);
+            }
         }
     }
 }

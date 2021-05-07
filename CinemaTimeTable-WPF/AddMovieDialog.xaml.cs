@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CinemaTimeTableLibrary;
 
 namespace CinemaTimeTable_WPF
 {
@@ -27,11 +28,11 @@ namespace CinemaTimeTable_WPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //MainData mainData = MainData.GetMainData();
-            //TimeSpan duration = new TimeSpan(0, Convert.ToInt32(MovieDurationTextBox.Text), 0);
-            //Movie movie = new Movie(MovieNameTextBox.Text, duration);
-            //movie.Description = MovieDescriptionTextBox.Text;
-            //mainData.Movies.Add(movie);
+            MainData mainData = MainData.GetMainData();
+            TimeSpan duration = new TimeSpan(0, Convert.ToInt32(MovieDurationTextBox.Text), 0);
+            Movie movie = new Movie(MovieNameTextBox.Text, duration);
+            movie.Description = MovieDescriptionTextBox.Text;
+            mainData.Movies.Add(movie);
 
             this.Close();
         }
