@@ -12,7 +12,8 @@ namespace CinemaTimeTableLibrary
         public IEnumerable<Movie> Movies;
         public WorkDay WorkDay;
         public TimeTable BestTimeTable;
-        
+        public int count = 0;
+
         public TimeTableCreator(IEnumerable<Movie> movies, WorkDay workDay)
         {
             Movies = movies;
@@ -23,12 +24,12 @@ namespace CinemaTimeTableLibrary
         public void CreateTimeTable()
         {
             TimeSpan leftTime = WorkDay.TimeLeft;
-            FindBestTimeTable(leftTime, WorkDay.TimeOfStart, new TimeTable(leftTime));
+            FindBestTimeTable(WorkDay.TimeOfStart, new TimeTable(leftTime));
         }
 
         public override bool Equals(object obj)
         {
-            if(obj is TimeTableCreator)
+            if (obj is TimeTableCreator)
             {
                 TimeTableCreator comparedTimeTableCreator = (TimeTableCreator)obj;
 
@@ -41,33 +42,38 @@ namespace CinemaTimeTableLibrary
             }
         }
 
-        private void FindBestTimeTable(TimeSpan timeLeft, TimeSpan time, TimeTable currentTimeTable)
+        private void FindBestTimeTable(TimeSpan time, TimeTable currentTimeTable)
         {
             foreach (Movie movie in Movies)
             {
-                if (movie.Duration <= timeLeft)
+                if (movie.Duration <= currentTimeTable.TimeLeft)
                 {
-                    TimeTable newTimeTable = (TimeTable)currentTimeTable.Clone();
-                    newTimeTable.MoviesByTime.Add(time, movie);
-                    TimeSpan newTimeLeft = timeLeft - movie.Duration;
-                    newTimeTable.TimeLeft = newTimeLeft;
+                    currentTimeTable.MoviesByTime.Add(time, movie);
+                    currentTimeTable.TimeLeft -= movie.Duration;
+                    ++count;
+                    FindBestTimeTable(time + movie.Duration, currentTimeTable);
 
-                    FindBestTimeTable(newTimeLeft, time + movie.Duration, newTimeTable);
+                    if (currentTimeTable.MoviesByTime.Count > 0)
+                    {
+                        currentTimeTable.TimeLeft += currentTimeTable.MoviesByTime[currentTimeTable.MoviesByTime.Keys.Last()].Duration;
+                        currentTimeTable.MoviesByTime.Remove(currentTimeTable.MoviesByTime.Keys.Last());
+                    }
                 }
                 else
                 {
                     if (IsCurrentTimeTableBetter(currentTimeTable))
                     {
-                        BestTimeTable = currentTimeTable;
+                        BestTimeTable = (TimeTable)currentTimeTable.Clone();
                     }
                 }
             }
+
         }
 
         private bool IsCurrentTimeTableBetter(TimeTable currentTimeTable)
         {
-            return currentTimeTable.TimeLeft <= BestTimeTable.TimeLeft 
-                && currentTimeTable.countOfDifferentMovies > BestTimeTable.countOfDifferentMovies;
+            return currentTimeTable.countOfDifferentMovies > BestTimeTable.countOfDifferentMovies
+                && currentTimeTable.TimeLeft <= BestTimeTable.TimeLeft;
         }
     }
 }

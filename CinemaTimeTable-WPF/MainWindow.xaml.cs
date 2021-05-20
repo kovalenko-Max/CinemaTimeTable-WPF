@@ -29,10 +29,8 @@ namespace CinemaTimeTable_WPF
         {
             InitializeComponent();
             _mainData = MainData.GetMainData();
-            _mainData.WorkDay = new WorkDay(new TimeSpan(Convert.ToInt32(WorkTimeFrom.Text), 0, 0),
-                new TimeSpan(Convert.ToInt32(WorkTimeTo.Text), 0, 0));
-
             _mainData.CinemaHalls = new List<CinemaHall>();
+            _mainData.WorkDay = CreateWorkDay();
             _mainData.CinemaHalls.Add(new CinemaHall(_mainData.WorkDay, _mainData.Movies));
 
             MovieListBox.ItemsSource = _mainData.Movies;
@@ -53,6 +51,8 @@ namespace CinemaTimeTable_WPF
 
         private void CreateTimeTable_Click(object sender, RoutedEventArgs e)
         {
+            _mainData.WorkDay = CreateWorkDay();
+            _mainData.CinemaHalls[0].WorkDay = _mainData.WorkDay;
             _mainData.CinemaHalls[0].CreateTimeTable();
             _mainData.MoviesByTime = new ObservableCollection<MovieСard>();
             TimeTableList.ItemsSource = _mainData.MoviesByTime;
@@ -64,6 +64,12 @@ namespace CinemaTimeTable_WPF
                 movieСard.movieTime.Text += " - " + time;
                 _mainData.MoviesByTime.Add(movieСard);
             }
+        }
+
+        private WorkDay CreateWorkDay()
+        {
+            return new WorkDay(new TimeSpan(Convert.ToInt32(WorkTimeFrom.Text), 0, 0),
+                new TimeSpan(Convert.ToInt32(WorkTimeTo.Text), 0, 0));
         }
     }
 }

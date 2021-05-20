@@ -14,11 +14,7 @@ namespace CinemaTimeTableLibrary
         {
             get
             {
-                return TimeLeft = TimeOfEnd - TimeOfStart;
-            }
-            private set
-            {
-
+                return TimeOfEnd - TimeOfStart;
             }
         }
 
@@ -26,7 +22,6 @@ namespace CinemaTimeTableLibrary
         {
             TimeOfStart = timeOfStart;
             TimeOfEnd = timeOfEnd;
-            TimeLeft = timeOfEnd - timeOfStart;
         }
 
         public override bool Equals(object obj)
@@ -35,8 +30,7 @@ namespace CinemaTimeTableLibrary
             {
                 WorkDay comparedWorkDay = (WorkDay)obj;
                 return TimeOfStart == comparedWorkDay.TimeOfStart
-                    && TimeOfEnd == comparedWorkDay.TimeOfEnd
-                    && TimeLeft == comparedWorkDay.TimeLeft;
+                    && TimeOfEnd == comparedWorkDay.TimeOfEnd;
             }
             else
             {
@@ -47,6 +41,11 @@ namespace CinemaTimeTableLibrary
         public override string ToString()
         {
             return $"TimeOfStart = {TimeOfStart}, TimeOfEnd = {TimeOfEnd}, TimeLeft = {TimeLeft}";
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

@@ -23,7 +23,6 @@ namespace CinemaTimeTable_WPF
             Movies = new ObservableCollection<Movie>();
             MoviesByTime = new ObservableCollection<MovieСard>();
             MovieCards = new List<MovieСard>();
-            
         }
 
         public static MainData GetMainData()
