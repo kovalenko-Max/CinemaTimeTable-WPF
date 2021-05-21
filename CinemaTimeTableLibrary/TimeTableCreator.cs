@@ -79,7 +79,8 @@ namespace CinemaTimeTableLibrary
             double errorCoef = 120;
             double timeLeftError = WorkDay.TimeLeft.TotalSeconds / errorCoef;
 
-            bool isTimeLeftLessThanError = currentTimeTable.TimeLeft.TotalSeconds < timeLeftError;
+            bool isTimeLeftLessThanError = currentTimeTable.TimeLeft.TotalSeconds < timeLeftError
+                || currentTimeTable.TimeLeft < BestTimeTable.TimeLeft;
 
             return currentTimeTable.countOfDifferentMovies > BestTimeTable.countOfDifferentMovies
                 && isTimeLeftLessThanError;

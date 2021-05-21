@@ -59,6 +59,32 @@ namespace CinemaTimeTableLibratyTests
                 actualTimeTable,
                 expectedTimeTable
             };
+
+            movieMockNumb = 3;
+            movies = Mocks.GetMovies(movieMockNumb);
+            workDay = new WorkDay(new TimeSpan(10, 0, 0), new TimeSpan(16, 0, 0));
+            actualTimeTable = new TimeTableCreator(movies, workDay);
+            expectedTimeTable = new TimeTableCreator(movies, workDay);
+            expectedTimeTable.BestTimeTable = Mocks.GetExpectedTimeTable(new int[] { 0, 0, 0, 0 }, movieMockNumb, workDay);
+
+            yield return new object[]
+            {
+                actualTimeTable,
+                expectedTimeTable
+            };
+
+            movieMockNumb = 3;
+            movies = Mocks.GetMovies(movieMockNumb);
+            workDay = new WorkDay(new TimeSpan(10, 0, 0), new TimeSpan(15, 0, 0));
+            actualTimeTable = new TimeTableCreator(movies, workDay);
+            expectedTimeTable = new TimeTableCreator(movies, workDay);
+            expectedTimeTable.BestTimeTable = Mocks.GetExpectedTimeTable(new int[] { 0, 0, 0 }, movieMockNumb, workDay);
+
+            yield return new object[]
+            {
+                actualTimeTable,
+                expectedTimeTable
+            };
         }
     }
 
@@ -106,6 +132,13 @@ namespace CinemaTimeTableLibratyTests
                         new Movie("e", new TimeSpan(2,20,0)),
                         new Movie("f", new TimeSpan(3,0,0)),
                         new Movie("g", new TimeSpan(1,45,0))
+                    };
+                    break;
+
+                case 3:
+                    movies = new List<Movie>()
+                    {
+                        new Movie("a", new TimeSpan(1,30,0)),
                     };
                     break;
 
