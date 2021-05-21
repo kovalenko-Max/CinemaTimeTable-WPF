@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaTimeTableLibrary
 {
     public class TimeTableCreator
     {
-        public IEnumerable<Movie> Movies;
-        public WorkDay WorkDay;
-        public TimeTable BestTimeTable;
-        public int count = 0;
+        public IEnumerable<Movie> Movies { get; set; }
+        public WorkDay WorkDay { get; set; }
+        public TimeTable BestTimeTable { get; set; }
 
         public TimeTableCreator(IEnumerable<Movie> movies, WorkDay workDay)
         {
@@ -25,6 +21,11 @@ namespace CinemaTimeTableLibrary
         {
             TimeSpan leftTime = WorkDay.TimeLeft;
             FindBestTimeTable(WorkDay.TimeOfStart, new TimeTable(leftTime));
+        }
+
+        public override string ToString()
+        {
+            return BestTimeTable.ToString();
         }
 
         public override bool Equals(object obj)
@@ -42,6 +43,11 @@ namespace CinemaTimeTableLibrary
             }
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         private void FindBestTimeTable(TimeSpan time, TimeTable currentTimeTable)
         {
             foreach (Movie movie in Movies)
@@ -50,7 +56,6 @@ namespace CinemaTimeTableLibrary
                 {
                     currentTimeTable.MoviesByTime.Add(time, movie);
                     currentTimeTable.TimeLeft -= movie.Duration;
-                    ++count;
                     FindBestTimeTable(time + movie.Duration, currentTimeTable);
 
                     if (currentTimeTable.MoviesByTime.Count > 0)
@@ -67,13 +72,17 @@ namespace CinemaTimeTableLibrary
                     }
                 }
             }
-
         }
 
         private bool IsCurrentTimeTableBetter(TimeTable currentTimeTable)
         {
+            double errorCoef = 120;
+            double timeLeftError = WorkDay.TimeLeft.TotalSeconds / errorCoef;
+
+            bool isTimeLeftLessThanError = currentTimeTable.TimeLeft.TotalSeconds < timeLeftError;
+
             return currentTimeTable.countOfDifferentMovies > BestTimeTable.countOfDifferentMovies
-                && currentTimeTable.TimeLeft <= BestTimeTable.TimeLeft;
+                && isTimeLeftLessThanError;
         }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaTimeTableLibrary
 {
@@ -33,7 +29,7 @@ namespace CinemaTimeTableLibrary
 
         public override bool Equals(object obj)
         {
-            if(obj is Movie)
+            if (obj is Movie)
             {
                 Movie comparedMovie = (Movie)obj;
                 return Name.Equals(comparedMovie.Name)
@@ -44,6 +40,11 @@ namespace CinemaTimeTableLibrary
             {
                 return false;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

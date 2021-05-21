@@ -1,39 +1,32 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaTimeTableLibrary
 {
-    public struct TimeTable : ICloneable
+    public class TimeTable : ICloneable
     {
         public Dictionary<TimeSpan, Movie> MoviesByTime;
         public TimeSpan TimeLeft { get; set; }
-        public int countOfDifferentMovies 
-        { 
+        public int countOfDifferentMovies
+        {
             get
             {
                 return GetCountOfDifferentMovies();
             }
-            private set
-            { 
-            } 
         }
 
         public TimeTable(TimeSpan timeLeft)
         {
             TimeLeft = timeLeft;
             MoviesByTime = new Dictionary<TimeSpan, Movie>();
-            countOfDifferentMovies = GetCountOfDifferentMovies();
         }
 
-        public TimeTable(Dictionary<TimeSpan,Movie> moviesByTime, TimeSpan timeLeft)
+        public TimeTable(Dictionary<TimeSpan, Movie> moviesByTime, TimeSpan timeLeft)
         {
             MoviesByTime = moviesByTime;
             TimeLeft = timeLeft;
-            countOfDifferentMovies = GetCountOfDifferentMovies();
         }
 
         private int GetCountOfDifferentMovies()
@@ -48,13 +41,13 @@ namespace CinemaTimeTableLibrary
 
         public override bool Equals(object obj)
         {
-            if(obj is TimeTable)
+            if (obj is TimeTable)
             {
                 TimeTable comparedTimeTable = (TimeTable)obj;
-                
-                foreach(var movieByTime in MoviesByTime)
+
+                foreach (var movieByTime in MoviesByTime)
                 {
-                    if(!movieByTime.Value.Equals( comparedTimeTable.MoviesByTime[movieByTime.Key]))
+                    if (!movieByTime.Value.Equals(comparedTimeTable.MoviesByTime[movieByTime.Key]))
                     {
                         return false;
                     }
@@ -66,6 +59,25 @@ namespace CinemaTimeTableLibrary
             {
                 return false;
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder result = new StringBuilder();
+
+            foreach (var movieByTime in MoviesByTime)
+            {
+                result.Append($"{movieByTime.Key} {movieByTime.Value}\n");
+            }
+
+            result.Append(TimeLeft);
+
+            return result.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

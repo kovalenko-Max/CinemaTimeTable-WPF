@@ -71,5 +71,10 @@ namespace CinemaTimeTable_WPF
             return new WorkDay(new TimeSpan(Convert.ToInt32(WorkTimeFrom.Text), 0, 0),
                 new TimeSpan(Convert.ToInt32(WorkTimeTo.Text), 0, 0));
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

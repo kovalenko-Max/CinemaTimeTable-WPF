@@ -45,9 +45,12 @@
 
                 </TabItem.Content>
             </TabItem>
-            <TabItem Header="Hall 2">
-
+            <TabItem Width="32">
+                <TabItem.Header >
+                    <Button x:Name="CreateTabButton" Content="+" Click="Button_Click" Background="{x:Null}" BorderBrush="{x:Null}" Width="35" Height="30" Margin="-10,-10,-10,-10"/>
+                </TabItem.Header>
             </TabItem>
+
         </TabControl>
 
     </Grid>
